@@ -1,0 +1,43 @@
+import random
+import datetime
+from sre_constants import CATEGORY_UNI_NOT_LINEBREAK
+
+count=10
+mcount=2
+replay=5
+
+alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+def main():
+    st = datetime.datetime.now()
+
+    question()
+    answer()
+
+    ed = datetime.datetime.now()
+    print("経過時間：" + str((ed-st).seconds) + "秒")
+
+def question():
+    ques=[]
+    miss=[]
+    for i in range(count):
+        ques.append(alphabet[random.randint(0,25)])
+
+    print("対象文字：")
+    print(*ques)
+    
+    for i in range(mcount):
+        miss.append(ques.pop(random.randint(0,len(ques)-1)))
+
+    print("欠損文字：")
+    print(*miss)
+    print("表示文字：")
+    print(*ques)
+
+def answer():
+    mcountans=input("欠損文字はいくつあるでしょうか？：")
+    if (mcountans == mcount):
+        missletter=input("正解です。それでは具体的に欠損文字を1つずつ入力してください")
+
+
+if __name__ == "__main__":
+    main()
