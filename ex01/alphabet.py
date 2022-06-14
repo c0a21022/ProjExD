@@ -10,7 +10,9 @@ alphabet=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R
 def main():
     st = datetime.datetime.now()
 
-    question()
+    for i in range(replay):
+        question()
+
     answer()
 
     ed = datetime.datetime.now()
@@ -36,7 +38,13 @@ def question():
 def answer():
     mcountans=input("欠損文字はいくつあるでしょうか？：")
     if (mcountans == mcount):
-        missletter=input("正解です。それでは具体的に欠損文字を1つずつ入力してください")
+        print("正解です。それでは具体的に欠損文字を1つずつ入力してください")
+        miss1=input("1つ目の文字を入力してください")
+        miss2=input("2つ目の文字を入力してください")
+        if miss1 in miss == True and miss2 in miss == True:
+            print("正解です")
+        else :
+            print("またチャレンジしてください")
 
 
 if __name__ == "__main__":
