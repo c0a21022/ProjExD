@@ -13,7 +13,7 @@ def main():
     for i in range(replay):
         question()
         answer()
-
+        
 
 
     ed = datetime.datetime.now()
@@ -44,10 +44,10 @@ def answer():
         miss2=input("2つ目の文字を入力してください")
         if miss1 in miss == True and miss2 in miss == True:
             print("正解です")
-            
         else :
             print("またチャレンジしてください")
-
+    else:
+        print("不正解です")
 
 if __name__ == "__main__":
     main()
