@@ -12,8 +12,9 @@ def main():
 
     for i in range(replay):
         question()
+        answer()
 
-    answer()
+
 
     ed = datetime.datetime.now()
     print("経過時間：" + str((ed-st).seconds) + "秒")
@@ -43,6 +44,7 @@ def answer():
         miss2=input("2つ目の文字を入力してください")
         if miss1 in miss == True and miss2 in miss == True:
             print("正解です")
+            
         else :
             print("またチャレンジしてください")
 
