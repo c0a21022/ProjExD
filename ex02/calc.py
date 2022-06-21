@@ -14,7 +14,7 @@ def button_click(event):
 
     if text == "=":
         eqn = entry.get()
-        ans = eval(eqn)
+        ans = int(eval(eqn))
         entry.delete(0,tk.END)
         entry.insert(tk.END, ans)
     else:
@@ -30,12 +30,12 @@ entry.grid(row=0, column=0, columnspan=3)
 
 
 r, c , x= 1, 0 ,9
-nums=[9, 8, 7, 6, 5, 4, 3, 2, 1, 0, "+", "="]
+nums=[9, 8, 7, 6, 5, 4, 3, 2, 1, 0, "+", "-", "*", "/", "="]
 for i in nums:
     button = tk.Button (root,
                         font=("Times New Roman", 30),
                         text=i,
-                        width=4, height=2
+                        width=4, height=1
                         )
     button.bind("<1>", button_click)
     button.grid(row=r, column=c)
