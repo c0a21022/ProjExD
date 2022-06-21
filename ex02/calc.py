@@ -8,7 +8,8 @@ root.title("電卓")
 def button_click(event):
     button = event.widget
     text = button["text"]
-    tkm.showinfo(text, f"[{text}]のボタンがクリックされました")
+    entry.insert(tk.END, text)
+    #tkm.showinfo(text, f"[{text}]のボタンがクリックされました")
 
 entry = tk.Entry(root,
                 justify="right", 
@@ -22,8 +23,8 @@ for i in range (9, -1, -1):
     button = tk.Button (root,
                         font=("Times New Roman", 30),
                         text=i,
-                        width=4, height=2)
-
+                        width=4, height=2
+                        )
     button.bind("<1>", button_click)
     button.grid(row=r, column=c)
 
