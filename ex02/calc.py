@@ -18,8 +18,9 @@ entry = tk.Entry(root,
                 )
 entry.grid(row=0, column=0, columnspan=3)
 
-r, c = 1, 0
-for i in range (9, -1, -1):
+r, c , x= 1, 0 ,9
+nums=[9, 8, 7, 6, 5, 4, 3, 2, 1, 0, "+"]
+for i in nums:
     button = tk.Button (root,
                         font=("Times New Roman", 30),
                         text=i,
@@ -29,7 +30,8 @@ for i in range (9, -1, -1):
     button.grid(row=r, column=c)
 
     c+=1
-    if (i-1)%3 == 0:
+    x-=1
+    if (x)%3 == 0:
         r += 1
         c = 0
 
