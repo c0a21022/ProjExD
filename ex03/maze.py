@@ -11,10 +11,10 @@ def key_up(event):
 
 def main_proc():
     global cx, cy, mx, my
-    if key =="Up":    my -= 1
-    if key =="Down":  my += 1
-    if key =="Left":  mx -= 1
-    if key =="Right": mx += 1
+    if key =="Up"     and maze_bg[my-1][mx] == 0: my -= 1
+    if key =="Down"   and maze_bg[my+1][mx] == 0: my += 1
+    if key =="Left"   and maze_bg[my][mx-1] == 0: mx -= 1
+    if key =="Right"  and maze_bg[my][mx+1] == 0: mx += 1
     cx, cy = mx*100+50, my*100+50
     canvas.coords("tori", cx, cy)
     root.after(100, main_proc)
