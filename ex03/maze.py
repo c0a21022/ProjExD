@@ -19,14 +19,19 @@ def main_proc():
     if key =="Right"  and maze_bg[my][mx+1] == 0: mx += 1
     cx, cy = mx*100+50, my*100+50
     canvas.coords("tori", cx, cy)
-    root.after(100, main_proc)
 
     if cx == 1350 and cy == 750:
+        global roop
         label = tk.Label(text="GOAL",
                         font=("Times New Roman", 150),
                         fg="red"
                         )
         label.place(x=500, y=300)
+        maze.after_cancel(roop)
+        roop = None
+        return
+        
+    root.after(100, main_proc)
 
 if __name__ == "__main__":
     root = tk.Tk()
