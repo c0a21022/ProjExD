@@ -1,11 +1,14 @@
 from cProfile import label
+from itertools import count
 from pdb import Restart
 import tkinter as tk
 import maze_maker as mm
+import time
 
 def key_down(event):
     global key
     key = event.keysym
+    print(key)
 
 def key_up(event):
     global key
@@ -20,17 +23,20 @@ def main_proc():
     cx, cy = mx*100+50, my*100+50
     canvas.coords("tori", cx, cy)
 
-    if cx == 1350 and cy == 750:
-        global roop
+    if key == "Return":            #Enterが押されたらウィンドウを消去する
+        root.destroy()
+
+    if cx == 1350 and cy == 750:   #こうかとんがゴール位置に到達した時
+        global roop 
         label = tk.Label(text="GOAL",
                         font=("Times New Roman", 150),
                         fg="red"
-                        )
+                        )          #赤文字でGOALと表示させる
         label.place(x=500, y=300)
-        maze.after_cancel(roop)
+        maze.after_cancel(roop)    #リアルタイム処理を中断させる
         roop = None
-        return
         
+
     root.after(100, main_proc)
 
 if __name__ == "__main__":
@@ -43,8 +49,8 @@ if __name__ == "__main__":
     maze_bg = mm.make_maze(15, 9)
     mm.show_maze(canvas, maze_bg)
 
-    canvas.create_rectangle(1300, 700, 1400, 800, fill="orange")
-    canvas.create_rectangle(100, 100, 200, 200, fill="green")
+    canvas.create_rectangle(1300, 700, 1400, 800, fill="orange")  #左上にオレンジのスタート地点を配置する
+    canvas.create_rectangle(100, 100, 200, 200, fill="green")     #右下に緑色のゴール位置を配置する
 
     tori = tk.PhotoImage(file="fig/9.png")
     mx, my = 1,1
