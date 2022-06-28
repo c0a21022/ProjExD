@@ -1,3 +1,5 @@
+from cProfile import label
+from pdb import Restart
 import tkinter as tk
 import maze_maker as mm
 
@@ -19,6 +21,13 @@ def main_proc():
     canvas.coords("tori", cx, cy)
     root.after(100, main_proc)
 
+    if cx == 1350 and cy == 750:
+        label = tk.Label(text="GOAL",
+                        font=("Times New Roman", 150),
+                        fg="red"
+                        )
+        label.place(x=500, y=300)
+
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("迷えるこうかとん")
@@ -28,6 +37,9 @@ if __name__ == "__main__":
 
     maze_bg = mm.make_maze(15, 9)
     mm.show_maze(canvas, maze_bg)
+
+    canvas.create_rectangle(1300, 700, 1400, 800, fill="orange")
+    canvas.create_rectangle(100, 100, 200, 200, fill="green")
 
     tori = tk.PhotoImage(file="fig/9.png")
     mx, my = 1,1
