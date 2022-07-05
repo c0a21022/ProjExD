@@ -1,7 +1,6 @@
 import pygame as pg
 import sys
 import random
-import time
 import tkinter as tk
 import tkinter.messagebox as tkm
 
