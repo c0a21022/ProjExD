@@ -1,3 +1,5 @@
+from textwrap import fill
+from turtle import fillcolor
 import pygame as pg
 import sys
 import random
@@ -55,10 +57,11 @@ class Bird:
         self.blit(scr)
 
 
+
 class Bomb:
     def __init__(self, color, size, vxy, scr):
         self.sfc = pg.Surface((2*size, 2*size)) # Surface
-        self.sfc.set_colorkey((0, 0, 0)) 
+        self.sfc.set_colorkey((0, 0, 0))
         pg.draw.circle(self.sfc, color, (size, size), size)
         self.rct = self.sfc.get_rect()          # Rect
         self.rct.centerx = random.randint(0, scr.rct.width)
@@ -77,12 +80,57 @@ class Bomb:
 
         self.blit(scr)          
 
+class fight:
+    def __init__(self, color, size, xy, scr):
+        key_states = pg.key.get_pressed()
+        self.sfc = pg.Surface((2*size, 2*size)) # Surface
+        self.sfc.set_colorkey((0, 0, 0))
+        # if key_states[pg.K_LSHIFT] == True:     #LSHIFTを押している間色を透明にする
+        #     self.sfc.fill((255, 0, 0, 128))
+        # else:
+        #     self.sfc.fill((255, 0, 0, 255))
+        pg.draw.circle(self.sfc, color, (size, size), size, width=8)
+        self.rct = self.sfc.get_rect() 
+        self.rct.center = xy
+
+    def blit(self, scr: Screen):
+        scr.sfc.blit(self.sfc, self.rct)
+
+    def update(self, scr: Screen):
+        key_states = pg.key.get_pressed()
+        if key_states[pg.K_LSHIFT] == True:     #LSHIFTを押している間移動速度を上げる
+            move_speed = 4
+        else:
+            move_speed = 2
+
+        if key_states[pg.K_UP]:
+            self.rct.centery -= move_speed
+        if key_states[pg.K_DOWN]:
+            self.rct.centery += move_speed
+        if key_states[pg.K_LEFT]:
+            self.rct.centerx -= move_speed
+        if key_states[pg.K_RIGHT]:
+            self.rct.centerx += move_speed
+
+        if check_bound(self.rct, scr.rct) != (1,1) :
+            if key_states[pg.K_UP]:
+                self.rct.centery += move_speed
+            if key_states[pg.K_DOWN]:
+                self.rct.centery -= move_speed
+            if key_states[pg.K_LEFT]:
+                self.rct.centerx += move_speed
+            if key_states[pg.K_RIGHT]:
+                self.rct.centerx -= move_speed
+        self.blit(scr)
+
+
 def main():
     clock = pg.time.Clock()
 
     scr = Screen("逃げろ！こうかとん", (1600, 900), "fig/pg_bg.jpg")
     kkt = Bird("fig/3.png", 2.0, (900, 400))
-    bkd = Bomb((255, 0, 0), 10, (+1, +1), scr)
+    bkd = Bomb((255, 0, 0), 20, (+1, +1), scr)
+    vs = fight((255, 0, 0, 0), 65, (900, 400), scr)
 
     while True:
         scr.blit()
@@ -92,12 +140,20 @@ def main():
 
         kkt.update(scr)
         bkd.update(scr)
+        vs.update(scr)
 
         if kkt.rct.colliderect(bkd.rct):
-            root=tk.Tk()
-            root.withdraw()
-            tkm.showerror("残念！", "GameOver")  #爆弾に接触するとメッセージを表示
-            return
+            key_states = pg.key.get_pressed()
+            if key_states[pg.K_LSHIFT] == True:      #LSHIFTを押している間移動速度を上げる
+                root=tk.Tk()
+                root.withdraw()
+                tkm.showinfo("勝利！", "GameOver")    #爆弾に接触するとメッセージを表示
+                return
+            else:
+                root=tk.Tk()
+                root.withdraw()
+                tkm.showerror("残念！", "GameOver")   #爆弾に接触するとメッセージを表示
+                return
 
         pg.display.update()
         clock.tick(1000)
